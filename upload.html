@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicar casa - Puertas Abiertas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- CSS oficial de Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-gray-800 min-h-screen flex flex-col justify-between">
+
+  <!-- Barra de navegación con botón de retorno al inicio -->
+  <nav class="bg-white shadow-sm border-b border-emerald-100 sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold shadow-sm shadow-emerald-600/30">PA</div>
+        <div>
+          <span class="font-bold text-emerald-800 text-sm sm:text-base leading-tight block">Puertas Abiertas</span>
+          <span class="text-[10px] text-emerald-600 font-medium block">Satélite Norte</span>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Botón explícito para volver al inicio -->
+        <a href="index.html" class="text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+          <i class="fa-solid fa-arrow-left"></i> <span>Inicio</span>
+        </a>
+        <div id="navAuthContenedor" class="flex items-center"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Encabezado verde institucional -->
+  <header class="bg-gradient-to-br from-emerald-800 via-emerald-700 to-teal-900 text-white py-7 px-4 shadow-inner">
+    <div class="max-w-3xl mx-auto text-center">
+      <span class="inline-flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs px-3 py-1 rounded-full font-medium mb-2">
+        <i class="fa-solid fa-house-chimney"></i> Nueva propiedad en alquiler
+      </span>
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Publicar Vivienda o Habitación</h1>
+      <p class="text-emerald-100 text-xs sm:text-sm mt-1 max-w-lg mx-auto">
+        Ingresa los datos, fija el punto en el mapa y sube fotografías de tu inmueble.
+      </p>
+    </div>
+  </header>
+
+  <!-- Contenedor del Formulario -->
+  <main class="max-w-3xl mx-auto px-4 -mt-4 pb-12 w-full flex-1">
+    <form id="formCasa" class="bg-white rounded-3xl shadow-xl shadow-emerald-950/5 border border-emerald-100/80 p-5 sm:p-8 space-y-6">
+
+      <!-- Sección 1: Datos de Contacto -->
+      <div class="bg-emerald-50/60 rounded-2xl p-4 sm:p-5 border border-emerald-100">
+        <h2 class="text-xs font-bold text-emerald-900 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-user-check text-emerald-600 text-sm"></i> Datos de contacto del dueño
+        </h2>
+        <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Nombre completo *</label>
+            <input type="text" id="inputNombre" name="nombre" required placeholder="Ej: Mario Vargas"
+                   class="w-full bg-white border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl px-3.5 py-2.5 text-sm transition outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">WhatsApp (con código 591) *</label>
+            <input type="tel" name="whatsapp" required placeholder="591 7XXXXXXX"
+                   class="w-full bg-white border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl px-3.5 py-2.5 text-sm transition outline-none">
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección 2: Información de la Vivienda -->
+      <div class="space-y-4">
+        <h2 class="text-xs font-bold text-emerald-900 uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-circle-info text-emerald-600 text-sm"></i> Detalles de la vivienda
+        </h2>
+        
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Título de la publicación *</label>
+          <input type="text" name="titulo" required placeholder="Ej: Cuarto independiente cerca del mercado"
+                 class="w-full border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl px-3.5 py-2.5 text-sm transition outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Dirección referencial / Barrio *</label>
+          <input type="text" name="direccion" required placeholder="Ej: Av. Satélite Norte, UV-3, a 2 cuadras de la plaza"
+                 class="w-full border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl px-3.5 py-2.5 text-sm transition outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Precio (Bs/mes) *</label>
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-gray-500 text-xs font-bold">Bs</span>
+              <input type="number" name="precio" required min="1" placeholder="800"
+                     class="w-full border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl pl-8 pr-3 py-2.5 text-sm font-semibold transition outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Tipo de inmueble</label>
+            <select name="tipo" class="w-full border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl px-3 py-2.5 text-sm transition outline-none bg-white">
+              <option value="cuarto">Cuarto</option>
+              <option value="casa">Casa</option>
+              <option value="departamento">Departamento</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Habitaciones *</label>
+            <input type="number" name="habitaciones" required min="1" value="1"
+                   class="w-full border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl px-3 py-2.5 text-sm transition outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Baños *</label>
+            <input type="number" name="banos" required min="1" value="1"
+                   class="w-full border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl px-3 py-2.5 text-sm transition outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Descripción y detalles importantes *</label>
+          <textarea name="descripcion" rows="3" required placeholder="Describe si incluye servicios (agua, luz, wifi), si se aceptan mascotas o si cuenta con garaje..."
+                    class="w-full border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-xl p-3 text-sm transition outline-none"></textarea>
+        </div>
+      </div>
+
+      <!-- Sección 3: Mapa interactivo Leaflet (OpenStreetMap) -->
+      <div class="border-t border-gray-100 pt-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+          <label class="text-sm font-bold text-emerald-900 flex items-center gap-1.5">
+            <i class="fa-solid fa-map-location-dot text-emerald-600"></i> Ubicación exacta en el mapa
+          </label>
+          <button type="button" id="btnMiUbicacion" 
+                  class="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold px-3 py-1.5 rounded-lg border border-emerald-300 flex items-center gap-1.5 transition self-start sm:self-auto shadow-sm">
+            <i class="fa-solid fa-crosshairs text-emerald-600"></i> Usar mi ubicación actual (GPS)
+          </button>
+        </div>
+        <p class="text-[11px] text-gray-500 mb-2">
+          Toca el mapa o arrastra el marcador rojo para señalar la casa en Satélite Norte.
+        </p>
+
+        <!-- Contenedor del Mapa con estilo asegurado -->
+        <div id="mapaSelector" class="rounded-2xl border-2 border-emerald-200 shadow-inner overflow-hidden"></div>
+        <input type="hidden" id="latitud" name="latitud">
+        <input type="hidden" id="longitud" name="longitud">
+        <p id="coordenadasTexto" class="text-[11px] text-emerald-700 mt-1 font-mono font-medium">📍 Ubicación fijada: Satélite Norte</p>
+      </div>
+
+      <!-- Sección 4: Fotografías -->
+      <div class="border-t border-gray-100 pt-4">
+        <label class="block text-sm font-bold text-emerald-900 mb-2 flex items-center gap-1.5">
+          <i class="fa-solid fa-camera text-emerald-600"></i> Fotografías del inmueble (1 a 4 fotos) *
+        </label>
+        
+        <label for="inputFotos"
+               class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-emerald-300 hover:border-emerald-500 rounded-2xl cursor-pointer bg-emerald-50/40 hover:bg-emerald-50 transition group">
+          <i class="fa-solid fa-cloud-arrow-up text-2xl text-emerald-600 group-hover:scale-110 transition"></i>
+          <span class="text-xs font-semibold text-emerald-800 mt-1.5">Elegir fotos desde el teléfono o PC</span>
+          <span class="text-[11px] text-gray-400">JPG o PNG (máx. 4)</span>
+        </label>
+        <input type="file" id="inputFotos" accept="image/*" multiple required>
+        <div id="vistaPrevia" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-3"></div>
+      </div>
+
+      <!-- Botón de Publicación -->
+      <div class="pt-2">
+        <button type="submit" id="btnEnviar"
+                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-2xl text-sm sm:text-base shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 transition duration-150">
+          <i class="fa-solid fa-paper-plane"></i> Publicar anuncio ahora
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="bg-white border-t border-gray-200 text-center text-xs text-gray-500 py-6">
+    © 2026 Puertas Abiertas · Satélite Norte, Santa Cruz, Bolivia
+  </footer>
+
+  <!-- Scripts en orden estricto -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- JS oficial de Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/upload.js"></script>
+</body>
+</html>

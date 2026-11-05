@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceder - Puertas Abiertas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col justify-between">
+
+  <!-- Barra de navegación -->
+  <nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">PA</div>
+        <span class="font-bold text-emerald-700">Puertas Abiertas</span>
+      </a>
+      <a href="index.html" class="text-emerald-600 text-sm hover:underline">← Volver al inicio</a>
+    </div>
+  </nav>
+
+  <!-- Contenedor del formulario -->
+  <div class="max-w-md mx-auto px-4 py-10 w-full">
+    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+      
+      <!-- Pestañas Iniciar Sesión / Registro -->
+      <div class="flex border-b border-gray-200 mb-6">
+        <button id="tabLogin" class="flex-1 py-3 text-center font-semibold text-emerald-600 border-b-2 border-emerald-600 transition">
+          Iniciar Sesión
+        </button>
+        <button id="tabRegister" class="flex-1 py-3 text-center font-semibold text-gray-500 hover:text-emerald-600 transition">
+          Registrarse
+        </button>
+      </div>
+
+      <h2 id="formTitulo" class="text-2xl font-bold text-gray-800 mb-2 text-center">Bienvenido de nuevo</h2>
+      <p id="formSubtitulo" class="text-xs text-gray-500 mb-6 text-center">Ingresa tus credenciales para acceder a tu cuenta</p>
+
+      <!-- Formulario Login / Registro -->
+      <form id="authForm" class="space-y-4">
+        
+        <!-- Campo Nombre (solo visible al registrarse) -->
+        <div id="campoNombre" class="hidden">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nombre completo *</label>
+          <input type="text" id="authNombre" placeholder="Juan Pérez"
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-emerald-500 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico *</label>
+          <input type="email" id="authEmail" required placeholder="correo@ejemplo.com"
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-emerald-500 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña *</label>
+          <input type="password" id="authPassword" required minlength="6" placeholder="Mínimo 6 caracteres"
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-emerald-500 text-sm">
+        </div>
+
+        <button type="submit" id="btnSubmitAuth"
+                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl transition duration-150 text-sm shadow">
+          Iniciar Sesión
+        </button>
+      </form>
+
+      <!-- Mensaje de error / estado -->
+      <p id="authMensaje" class="text-xs text-center mt-4 hidden font-medium"></p>
+    </div>
+  </div>
+
+  <footer class="text-center text-sm text-gray-500 py-6">
+    © 2026 Puertas Abiertas · Satélite Norte, Santa Cruz, Bolivia
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

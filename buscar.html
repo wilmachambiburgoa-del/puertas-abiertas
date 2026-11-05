@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar casas - Puertas Abiertas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+
+  <!-- Barra -->
+<nav class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-3.5 flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">PA</div>
+      <span class="font-bold text-emerald-700">Puertas Abiertas</span>
+    </a>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Botón explícito Volver al inicio -->
+      <a href="index.html" class="text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+        <i class="fa-solid fa-arrow-left"></i> <span>Inicio</span>
+      </a>
+      <a href="upload.html" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl transition shadow-sm">
+        + Publicar
+      </a>
+      <div id="navAuthContenedor" class="flex items-center"></div>
+    </div>
+  </div>
+</nav>
+
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-1">Casas en alquiler</h1>
+    <p class="text-gray-600 mb-6">Satélite Norte · Santa Cruz · Bolivia · Precios en Bs</p>
+
+    <!-- Filtros -->
+    <div class="flex flex-wrap gap-3 mb-6">
+      <input type="text" id="buscarTexto" placeholder="Buscar por zona o palabra..."
+             class="border border-gray-300 rounded-xl px-4 py-2 flex-1 min-w-[180px]">
+      <select id="filtroPrecio" class="border border-gray-300 rounded-xl px-4 py-2">
+        <option value="all">Cualquier precio</option>
+        <option value="1500">Hasta Bs 1.500</option>
+        <option value="2500">Hasta Bs 2.500</option>
+        <option value="4000">Hasta Bs 4.000</option>
+        <option value="6000">Hasta Bs 6.000</option>
+        <option value="10000">Hasta Bs 10.000</option>
+      </select>
+      <select id="filtroHab" class="border border-gray-300 rounded-xl px-4 py-2">
+        <option value="">Habitaciones</option>
+        <option value="1">1+</option>
+        <option value="2">2+</option>
+        <option value="3">3+</option>
+        <option value="4">4+</option>
+      </select>
+    </div>
+
+    <p id="contador" class="text-sm text-gray-500 mb-4">Cargando propiedades...</p>
+
+    <!-- Lista -->
+    <div id="listaCasas" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <div id="sinResultados" class="hidden text-center py-16">
+      <p class="text-xl text-gray-600 mb-4">No hay casas con esos filtros</p>
+      <a href="upload.html" class="bg-emerald-600 text-white px-6 py-3 rounded-xl inline-block">Publicar una casa</a>
+    </div>
+  </div>
+
+  <!-- Modal de fotos -->
+  <div id="modalFotos">
+    <div class="bg-white rounded-2xl p-4 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-lg" id="modalTitulo">Fotos</h3>
+        <button onclick="cerrarModal()" class="text-2xl text-gray-500 hover:text-black">&times;</button>
+      </div>
+      <div class="text-center mb-4">
+        <img id="fotoGrande" src="" class="mx-auto max-h-80 rounded-xl object-contain">
+      </div>
+      <div class="flex justify-center gap-3 mb-4">
+        <button onclick="fotoAnterior()" class="px-4 py-2 bg-gray-200 rounded-xl">← Anterior</button>
+        <span id="contadorFoto" class="py-2 text-sm text-gray-600"></span>
+        <button onclick="fotoSiguiente()" class="px-4 py-2 bg-gray-200 rounded-xl">Siguiente →</button>
+      </div>
+      <div id="modalGaleria" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+    </div>
+  </div>
+
+  <footer class="text-center text-sm text-gray-500 py-8">
+    © 2026 Puertas Abiertas · Satélite Norte, Santa Cruz, Bolivia
+  </footer>
+
+  <!-- Supabase y Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/buscar.js"></script>
+</body>
+</html>
